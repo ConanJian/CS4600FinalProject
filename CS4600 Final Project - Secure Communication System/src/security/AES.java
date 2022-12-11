@@ -22,22 +22,24 @@ public class AES {
 	
 	private static void setKey(final String myKey) throws NoSuchAlgorithmException, UnsupportedEncodingException 
 	{
+		//Hash my randomly generated key to get the final key
 		MessageDigest sha = null;
 		key = myKey.getBytes("UTF-8");
 	    sha = MessageDigest.getInstance("SHA-1");
 	    key = sha.digest(key);
-	    key = Arrays.copyOf(key, 32);
+	    key = Arrays.copyOf(key, 16);
 	    secretKey = new SecretKeySpec(key, "AES");
     }
 	
 	public static String genKey()
 	{
+		//Create a random 16 character key
 		String aesKey = "";
 		String map = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 		         + "0123456789"
 		         + "abcdefghijklmnopqrstuvxyz";
 		
-		for(int i = 0; i < 32; i++)
+		for(int i = 0; i < 16; i++)
 		{
 			int temp = (int)(Math.random()*(map.length()));
 			aesKey += map.charAt(temp);

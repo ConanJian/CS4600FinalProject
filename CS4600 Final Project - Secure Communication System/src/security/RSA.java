@@ -35,6 +35,7 @@ public class RSA {
 		encryptCipher.init(Cipher.ENCRYPT_MODE, publicKey);
 		
 		byte[] secretMessageBytes = message.getBytes(StandardCharsets.UTF_8);
+		//This encrypted the message
 		byte[] encyptedMessageBytes = encryptCipher.doFinal(secretMessageBytes);
 		String encodedMessage = Base64.getEncoder().encodeToString(encyptedMessageBytes);
 		return encodedMessage;
@@ -47,6 +48,7 @@ public class RSA {
 		
 		byte[] encryptedMessageBytes = Base64.getDecoder().decode(encryptedMessage);
 		
+		//This decrypts the message
 		byte[] decryptedMessageBytes = decryptCipher.doFinal(encryptedMessageBytes);
 		String decryptedMessage = new String(decryptedMessageBytes, StandardCharsets.UTF_8);
 		return decryptedMessage;

@@ -29,6 +29,9 @@ public class FileOperations {
 		}
 	}
 	
+	/** 
+	 * Read the entire file in separated by line breaks.
+	 */
 	public String[] readFileAsArray() throws FileNotFoundException
 	{
 		ArrayList<String> buffer = new ArrayList<String>();
@@ -41,6 +44,9 @@ public class FileOperations {
 		return buffer.toArray(new String[buffer.size()]);
 	}
 	
+	/**
+	 * Just Read in the entire file
+	 */
 	public String readFile() throws FileNotFoundException
 	{
 		String message = "";
@@ -60,6 +66,11 @@ public class FileOperations {
 		fw.close();
 	}
 	
+	/**
+	 * Append to the end of the file
+	 * @param str
+	 * @throws IOException
+	 */
 	public void appendFile(String str) throws IOException
 	{
 		FileWriter fw = new FileWriter(_file, true);
@@ -67,6 +78,12 @@ public class FileOperations {
 		fw.close();
 	}
 	
+	
+	/**
+	 * Utility Method to write a byte stream to a file
+	 * @param bytes
+	 * @throws IOException
+	 */
 	public void writeByteStream(byte[] bytes) throws IOException
 	{
 		FileOutputStream out = new FileOutputStream(_file);
@@ -74,6 +91,11 @@ public class FileOperations {
 		out.close();
 	}
 	
+	/**
+	 * Utility Method to append a byte stream to the end of a file
+	 * @param bytes
+	 * @throws IOException
+	 */
 	public void appendByteStream(byte[] bytes) throws IOException
 	{
 		FileOutputStream out = new FileOutputStream(_file, true);
@@ -81,6 +103,11 @@ public class FileOperations {
 		out.close();
 	}
 	
+	/**
+	 * Read the entire file in as a byte stream
+	 * @return
+	 * @throws IOException
+	 */
 	public byte[] readByteStream() throws IOException
 	{
 		FileInputStream in = new FileInputStream(_file);

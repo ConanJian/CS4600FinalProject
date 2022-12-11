@@ -27,6 +27,8 @@ private static String RECEIVER_PRIVATE_KEY_FILE = "ReceiverPrivateKey.txt";
 		File file = new File(SystemConstants.RECEIVER_PUBLIC_KEY_FILE);
 		if(!file.isFile())
 		{
+			//If we can't the public key file, we gen both the public and private key and store
+			//them in a file
 			KeyPair receiverPair = RSA.genKeys(SystemConstants.KEY_SIZE);
 			RSA.storePublicKey(SystemConstants.RECEIVER_PUBLIC_KEY_FILE, receiverPair.getPublic());
 			RSA.storePrivateKey(RECEIVER_PRIVATE_KEY_FILE, receiverPair.getPrivate());
@@ -48,9 +50,8 @@ private static String RECEIVER_PRIVATE_KEY_FILE = "ReceiverPrivateKey.txt";
 	
 	public void decryptMessageFromSender() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, IllegalArgumentException, InvalidKeySpecException, IOException
 	{
+		//Read File in Delimited by line breaks
 		String[] values = _comChannel.readFileAsArray();
-		
-		
 		
 		String encodedMac = values[2];
 		byte[] mac = Base64.getDecoder().decode(encodedMac);
@@ -58,12 +59,14 @@ private static String RECEIVER_PRIVATE_KEY_FILE = "ReceiverPrivateKey.txt";
 		MAC macOp = new MAC();
 		boolean isMatch = macOp.match(values[0] + values[1], mac);
 		
+		//Only Decrypt Message if Mac matches.
 		if(isMatch)
 		{
 			System.out.println("Mac matches");
 			System.out.println();
 			
 			System.out.print("Message: ");
+			//Retrieve AES Key from 2nd line to decrypt message
 			String aesKey = RSA.decryptMessage(values[1], RSA.getPrivateKey(RECEIVER_PRIVATE_KEY_FILE));
 			String message = AES.decrypt(values[0], aesKey);
 			System.out.println(message);

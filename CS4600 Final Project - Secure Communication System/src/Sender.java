@@ -31,6 +31,8 @@ public class Sender
 		File file = new File(SystemConstants.SENDER_PUBLIC_KEY_FILE);
 		if(!file.isFile())
 		{
+			//If we can't the public key file, we gen both the public and private key and store
+			//them in a file
 			KeyPair senderPair = RSA.genKeys(SystemConstants.KEY_SIZE);
 			RSA.storePublicKey(SystemConstants.SENDER_PUBLIC_KEY_FILE, senderPair.getPublic());
 			RSA.storePrivateKey(SENDER_PRIVATE_KEY_FILE, senderPair.getPrivate());
