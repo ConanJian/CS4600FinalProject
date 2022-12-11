@@ -63,6 +63,7 @@ private static String RECEIVER_PRIVATE_KEY_FILE = "ReceiverPrivateKey.txt";
 			System.out.println("Mac matches");
 			System.out.println();
 			
+			System.out.print("Message: ");
 			String aesKey = RSA.decryptMessage(values[1], RSA.getPrivateKey(RECEIVER_PRIVATE_KEY_FILE));
 			String message = AES.decrypt(values[0], aesKey);
 			System.out.println(message);

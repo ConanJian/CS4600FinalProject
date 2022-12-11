@@ -15,7 +15,7 @@ public class Main2 {
 			e.printStackTrace();
 		}
 		
-		System.out.println("Receiver has received message");
+		System.out.println("Receiver has received the message");
 	}
 
 }
